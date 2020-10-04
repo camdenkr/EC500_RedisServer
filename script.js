@@ -9,6 +9,15 @@ function send_function() {
       return
      var split_input = usr_input.split(" ");
      let input_len = split_input.length;
+
+     if(split_input[0] == "CLEAR" && input_len == 1)
+     {
+       clear_input()
+       //clear output console
+       console_output = ""
+       document.getElementById('console').innerHTML = console_output
+       return
+     }
     
     //make sure user signs in first
     //check login command, only login if that's the case
