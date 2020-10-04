@@ -2,6 +2,8 @@
 <html>
 
 <head>
+  <script type="text/javascript" src="script.js">
+  </script>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
 	<title>repl.it</title>
@@ -15,57 +17,8 @@
 	</div>
 
 	<div class="container center">
-		<div class="console">Console output goes here (make this scrollable)
-IOAudioEngineUserClient 0x0, scalarOutputCount 0x0, structureOutputSize 0x0 
-+ IOAudioEngineUserClient::registerBuffer64 0x0 0x103d83000 0x8010 0x14a8
-+ IOAudioEngineUserClient::safeRegisterClientBuffer64 <ptr> 
-+ IOAudioEngineUserClient[<ptr>]::registerClientBuffer64  (<ptr>[1], 0x103d83000, 0x8010, 0x14a8)
-  null clientBufferSetList
-  did not find clientBufferSetList for ID 0x14a8 
-  clientBuffer->mAudioClientBuffer32.sourceBuffer before offset: <ptr>, offset size: 16
-  clientBuffer->mAudioClientBuffer32.sourceBuffer after offset: <ptr>
-  null clientBufferSetList
-  did not find clientBufferSetList for ID 0x14a8 
-  creating new IOAudioClientBufferSet 
-  output 
-  !isOnline 
-- IOAudioEngineUserClient::registerClientBuffer64() result 0x0
-- IOAudioEngineUserClient::safeRegisterClientBuffer64  returns 0x0
-- IOAudioEngineUserClient::registerBuffer64 0x0 0x103d83000 0x8010 0x14a8 returns 0x0
-- IOAudioEngineUserClient::externalMethod returns 0x0
-+ IOAudioEngineUserClient::externalMethod, selector=0x3,   arg0 0x0, arg1 0x0, arg2 0x0 arg3 0x0 
-  scalarInputCount=0x0  structureInputSize 0x0, scalarOutputCount 0x0, structureOutputSize 0x0 
-+ IOAudioEngineUserClient[<ptr>]::startClient() - 0
-  audioEngine && !isInactive(). State = 0 
-  audioEngine->getState() != kIOAudioEnginePaused 
-+- IOAudioEngineUserClient[<ptr>]::setOnline(1)
-  !isOnline() setting online 
-+ IOAudioEngine[<ptr>]::startClient(<ptr>)
-+ IOAudioEngine[<ptr>]::incrementActiveUserClients() - 0
-+ IOAudioEngine[<ptr>]::startAudioEngine(state = 0)
-+ IOAudioDevice[<ptr>]::protectedCompletePowerStateChange() - current = 2 - pending = 2
-- IOAudioDevice[<ptr>]::protectedCompletePowerStateChange() - current = 2 - pending = 2 returns 0x0
-+ IOAudioDevice[<ptr>]::protectedCompletePowerStateChange() - current = 2 - pending = 2
-- IOAudioDevice[<ptr>]::protectedCompletePowerStateChange() - current = 2 - pending = 2 returns 0x0
-+ IOAudioDevice[<ptr>]::audioEngineStarting() - numRunningAudioEngines = 0
-- IOAudioDevice[<ptr>]::audioEngineStarting() - numRunningAudioEngines = 1
-+- IOAudioEngine[<ptr>]::resetStatusBuffer()
-+-IOAudioEngine[<ptr>]::setState(0x1. oldState=0)
-- IOAudioEngine[<ptr>]::getTimerInterval()
-- IOAudioEngine[<ptr>]::startAudioEngine() returns 0x0
-- IOAudioEngine[<ptr>]::incrementActiveUserClients() - 1 returns 0
-- IOAudioEngine[<ptr>]::startClient(<ptr>) returns 0x0
-  engine started 
-  bufferSet <ptr> 
-  output clientBuffer <ptr> 
-+ IOAudioStream[<ptr>]::addClient(<ptr>)
-- IOAudioStream[<ptr>]::addClient(<ptr>) returns 0x0
-- IOAudioEngineUserClient[<ptr>]::startClient() - 1 returns 0x0
-- IOAudioEngineUserClient::externalMethod returns 0x0
-1492406.084054 Bluetooth USB Host Controller@14300000: IOUSBHostDevice::forcePowerGated: kPowerStateSuspended timeout 1000ms
-1492406.084141 Bluetooth USB Host Controller@14300000: IOUSBHostDevice::powerStateWillChangeToGated: kPowerStateSuspended
-1492406.084186 Bluetooth USB Host Controller@14300000: IOUSBHostDevice::setPowerStateGated: kPowerStateOn -> kPowerStateSuspended
-1492406.084197 Bluetooth USB Host Controller@14300000: IOUSBHostDevice::setPowerStateGated: suspending pipes
+		<div class="console" id = "console">
+
 		</div>
 		<!--form action="/action_page.php"-->
 			<div class="cmdprompt">
@@ -73,7 +26,7 @@ IOAudioEngineUserClient 0x0, scalarOutputCount 0x0, structureOutputSize 0x0
         <input type="text" id="cmdprompt" name="message" placeholder="Enter Redis Command...">
       </div>
       <div class="sendbtn">
-        <button type="button">Send</button>
+        <button onclick="send_function()" type="button">Send</button>
       </div>
       <div class="helpbtn">
         <a href="#helpmodal"><button type="button"><i class="fa fa-question-circle fa-lg" aria-hidden="true"></i></button></a>
