@@ -14,7 +14,7 @@ function send_function() {
      {
        clear_input()
        //clear output console
-       console_output = ""
+       console_output = "$ "
        document.getElementById('console').innerHTML = console_output
        return
      }
@@ -23,6 +23,7 @@ function send_function() {
     //check login command, only login if that's the case
     if(split_input[0] == "PASSWORD")
     {
+      console_output = "$ "
       signed_in = 1
       hash_pass = (md5(salt + split_input[1]))
       clear_input()
@@ -36,7 +37,6 @@ function send_function() {
     }
     
    
-     
 
     
     //else //if a valid REDIS command, assume message is legitimate, take the rest of the command as the message, check for errors in request
@@ -49,15 +49,16 @@ function send_function() {
       //     message = message + " "
      // }
     //}
-    console_output = "$ " + console_output + document.getElementById("cmdprompt").value + "\n" //sets the whole console output to history plus the newly gathered data
+    console_output = console_output + document.getElementById("cmdprompt").value + "\n" + "$ "//sets the whole console output to history plus the newly gathered data
     document.getElementById('console').innerHTML = console_output; //sets value inside console to console_output
     clear_input()
-
+  
   //create command to send to URL, whitespaces are automatically parsed to URL format when sent
   let fetch_command = "https://agile.bu.edu/ec500_scripts/redis.php?salt=" + String(salt) + "&hash=" + String(hash_pass) + "&message=" + String(usr_input);
   console.log(fetch_command)
-    
-    fetch(fetch_command)
+
+
+  fetch(fetch_command)
   .then(function (response) {
     return response.json();
   })
