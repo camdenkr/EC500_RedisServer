@@ -59,6 +59,9 @@ function send_function() {
     document.getElementById('console').innerHTML = console_output; //sets value inside console to console_output
     })
   .catch(function (error) {
+    console_output = console_output + "> "+ error + document.getElementById("cmdprompt").value + "\n" + "$ "
+    console_output = console_output + "> "+ "Command may be incorrect, please try again" + document.getElementById("cmdprompt").value + "\n" + "$ "
+    document.getElementById('console').innerHTML = console_output;
     console.log("Error: " + error);
   });
   }
