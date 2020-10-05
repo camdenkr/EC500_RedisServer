@@ -23,10 +23,7 @@ function send_function() {
     //check login command, only login if that's the case
     if(split_input[0] == "PASSWORD")
     {
-      console_output = "$ "
-      signed_in = 1
-      hash_pass = (md5(salt + split_input[1]))
-      clear_input()
+      sign_user_in(split_input[1])
       return
     }
     else if(signed_in == 0)
@@ -35,10 +32,6 @@ function send_function() {
       clear_input()
       return
     }
-    
-   
-
-    
     //else //if a valid REDIS command, assume message is legitimate, take the rest of the command as the message, check for errors in request
     //{
       // var message = ""
@@ -49,22 +42,22 @@ function send_function() {
       //     message = message + " "
      // }
     //}
-    console_output = console_output + document.getElementById("cmdprompt").value + "\n" + "$ "//sets the whole console output to history plus the newly gathered data
-    document.getElementById('console').innerHTML = console_output; //sets value inside console to console_output
+
     clear_input()
+     console_output = console_output + usr_input + document.getElementById("cmdprompt").value + "\n" + "$ "
   
   //create command to send to URL, whitespaces are automatically parsed to URL format when sent
   let fetch_command = "https://agile.bu.edu/ec500_scripts/redis.php?salt=" + String(salt) + "&hash=" + String(hash_pass) + "&message=" + String(usr_input);
-  console.log(fetch_command)
-
-
-  fetch(fetch_command)
-  .then(function (response) {
-    return response.json();
-  })
-  .then(function (myJson) {
-    console.log(myJson.ip);
-  })
+  // let response = fetch(fetch_command, {headers: {"Access-Control-Allow-Origin": "*"} })
+  // .then((response) => response.text())
+  // console.log(response)
+  fetch(fetch_command, {headers: {"Acess-Control-Allow-Origin": "*"}})
+  .then(response=>response.text())
+  .then(data=>{     
+    //sets the whole console output to history plus the newly gathered data
+    console_output = console_output + "> "+ data + document.getElementById("cmdprompt").value + "\n" + "$ "
+    document.getElementById('console').innerHTML = console_output; //sets value inside console to console_output
+    })
   .catch(function (error) {
     console.log("Error: " + error);
   });
@@ -74,4 +67,13 @@ function send_function() {
 function clear_input()
 {
   document.getElementById('cmdprompt').value = "" 
+}
+
+//sign user in
+function sign_user_in(password){
+      clear_input()
+      console_output = "$ User signed in...\n$ "
+      document.getElementById('console').innerHTML = console_output;
+      signed_in = 1
+      hash_pass = (md5(salt + password))
 }
